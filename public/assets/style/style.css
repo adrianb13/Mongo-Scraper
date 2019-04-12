@@ -1,37 +1,103 @@
 body { 
-  background-color: #F2F6D0 
+  background: url("../images/background.jpg");
+  background-size: 100% auto; 
+}
+h1 {
+  background: rgb(174, 0, 255);
+  width: 500px;
+  font: 30px bold;
+  text-align: center;
+  margin: 10px auto 0px auto;
+  padding: 10px 0 10px 0;
+  border-radius: 25px;
 }
 h2 {
   font-weight: bold;
 }
-#wrapper {
-  width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 5%;
+a:link, a:visited, a:focus, a:hover, a:active {
+  text-decoration: none;
+  color: red;
+  margin: 10px; 
 }
-#articles {
-  display: inline-block;
-  overflow: auto;
-  width: 60%;
-  height: 700px;
-}
-#comments {
-  float: right;
-  width: 30%;
-}
-.bold {
-  font-weight: bold;
-}
-.description {
-  font-style: italic;
-}
+  #buzz {
+    color: yellow;
+  }
+  #wrapper {
+    float: left;
+    width: 600px;
+    background-color: white;
+    margin-left: 10%;
+    margin-right: auto;
+    margin-top: 50px;
+    padding: 0px 10px 0px 10px;
+    border: 3px solid rgb(174, 0, 255);
+    border-radius: 15px;
+  }
+  #articles {
+    display: inline-block;
+    overflow: auto;
+    height: 500px;
+    padding-right: 10px
+  }
+  #comments {
+    overflow: auto;
+    float: left;
+    width: 250px;
+    background-color: lightgray;
+    margin-left: 20px;
+    margin-right: auto;
+    margin-top: 50px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 5px;
+  }
+  .bold {
+    font-weight: bold;
+    border-bottom: 1px solid black
+  }
+  .description {
+    font-style: italic;
+  }
+  #addComment {
+    margin: 5px 5px 5px 0;
+    border: 1px solid gray;
+    border-radius: 5px;
+  }
+  #deleteComment {
+    margin: 5px 5px 5px 0;
+    border: 1px solid gray;
+    border-radius: 5px;
+  }
 textarea, input {
   display: block;
   width: 100%;
-  background-color: #FCF5C7;
+  background-color: white;
 }
 textarea {
   height: 200px;
   font-size: 18px;
+}
+footer {
+  text-align: center;
+  color: yellow;
+  font-weight: bold;
+  background-color: rgb(174, 0, 255);
+  margin-top: 30px;
+  padding: 5px;
+}
+
+@media (min-width: 750px) and (max-width: 1080px) { 
+  #comments {
+    width: 600px;
+    margin-left: 10%;
+  }
+}
+
+@media (max-width: 750px) {
+  #comments {
+    width: 400px;
+    margin-left: 10%;
+  }
+  #wrapper {
+    width: 400px;
+  }
 }

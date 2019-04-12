@@ -1,4 +1,5 @@
 var express = require("express");
+var exphbs = require("express-handlebars");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
@@ -15,10 +16,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+app.engine(
+  "handlebars",
+  exphbs({
+    defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
+
+require("./routes/apiRoutes")(app);
+require("./routes/htmlRoutes")(app);
+
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+  
+app.listen(PORT, function() {
+  console.log("App running on port " + PORT + "!");
+});
 
-app.get("/scrape", function(req, res) {
+module.exports = app;
+
+/* app.get("/scrape", function(req, res) {
   axios.get("https://www.buzzfeednews.com/").then(function(response) {
     var $ = cheerio.load(response.data);
     
@@ -51,7 +69,6 @@ app.get("/scrape", function(req, res) {
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
   db.Article.find({})
-    .populate("Comment")
     .then(function(dbArticle) {
       res.json(dbArticle)
     })
@@ -63,7 +80,7 @@ app.get("/articles", function(req, res) {
 // Route for grabbing a specific Article by id, populate it with it's comment
 app.get("/articles/:id", function(req, res) {
   db.Article.find({"_id": req.params.id})
-    .populate("Comment")
+    .populate("comments")
     .then(function(dbArticle) {
       res.json(dbArticle)
     })
@@ -76,7 +93,7 @@ app.get("/articles/:id", function(req, res) {
 app.post("/articles/:id", function(req, res) {
   db.Comment.create(req.body)
     .then(function(dbComment) {
-      return db.Article.findOneAndUpdate({ "_id": req.params.id}, { comments: dbComment._id } , { new: true});
+      return db.Article.find({ "_id": req.params.id}, { comments: dbComment._id } , { new: true});
     })
     .then(function(dbArticle) {
       res.json(dbArticle);
@@ -97,8 +114,4 @@ app.delete("/articles/:id", function(req, res) {
     .catch(function(err) {
       res.json(err);
   });
-}); 
-  
-app.listen(PORT, function() {
-  console.log("App running on port " + PORT + "!");
-});
+}); */ 
