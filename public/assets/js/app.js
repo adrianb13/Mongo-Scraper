@@ -23,8 +23,8 @@ $(document).on("click", "p", function() {
       $("#comments").append("<button data-id='" + data[0]._id + "' id='addComment'>Save</button>");
       $("#comments").append("<button data-id='" + data[0]._id + "' id='deleteComment'>Delete</button>");
 
-      if (data[0].comments) {
-        $("#bodyinput").val(data[0].comments.comment);
+      if (data[0].comment) {
+        $("#bodyinput").val(data[0].comment.body);
       }
     });
 });
@@ -37,7 +37,7 @@ $(document).on("click", "#addComment", function() {
     method: "POST",
     url: "/articles/" + thisId,
     data: {
-      comment: $("#bodyinput").val()
+      body: $("#bodyinput").val()
     }
   })
     .then(function(data) {
@@ -55,7 +55,7 @@ $(document).on("click", "#deleteComment", function() {
     method: "DELETE",
     url: "/articles/" + thisId,
     data: {
-      comment
+      body: $("bodyinput").val()
     }
   })
   .then(function(data) {
